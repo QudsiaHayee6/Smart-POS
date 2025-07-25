@@ -14,7 +14,8 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
-} from "lucide-react";
+  FileText,
+} from "lucide-react"; // Added FileText for Orders
 import { useEffect, useState } from "react";
 
 interface SidebarItemProps {
@@ -81,14 +82,12 @@ export default function Sidebar({
   const [hasMounted, setHasMounted] = useState(false);
 
   useEffect(() => {
-    const hardcodedRole = "cashier"; // change to test different roles
-    localStorage.setItem("role", hardcodedRole);
-    setRole(hardcodedRole);
+    const savedRole = localStorage.getItem("role");
+    setRole(savedRole);
     setHasMounted(true);
   }, []);
 
   const toggleSidebar = () => setIsCollapsed((prev) => !prev);
-
   if (!hasMounted) return null;
 
   const isAdmin = role === "admin";
@@ -125,6 +124,14 @@ export default function Sidebar({
               href="/sales"
               label="Sales"
               icon={<ShoppingCart size={20} />}
+              isCollapsed={isCollapsed}
+            />
+          )}
+          {(isAdmin || isCashier) && (
+            <SidebarItem
+              href="/orders"
+              label="Orders"
+              icon={<FileText size={20} />}
               isCollapsed={isCollapsed}
             />
           )}
