@@ -28,24 +28,24 @@ export default function LoginPage() {
       // Save role in localStorage
       localStorage.setItem("role", user.role);
       localStorage.setItem("name", user.name); // optional
-      router.push("/dashboard"); // You can change route if needed
+      router.push("/sales"); // You can change route if needed
     } else {
       setError("Invalid email or password");
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-50">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#f8fafc] via-[#e0e7ff] to-[#f0fdf4]">
       <form
         onSubmit={handleLogin}
-        className="bg-white p-6 rounded shadow-md w-full max-w-sm space-y-4"
+        className="bg-white/90 p-8 rounded-2xl shadow-xl w-full max-w-sm space-y-5 border border-indigo-100"
       >
-        <h1 className="text-2xl font-semibold text-center">Login</h1>
+        <h1 className="text-3xl font-extrabold text-indigo-700 text-center mb-2 drop-shadow">Login</h1>
 
         <input
           type="email"
           placeholder="Email"
-          className="w-full border px-3 py-2 rounded"
+          className="w-full border-2 border-indigo-100 focus:border-green-300 px-4 py-2 rounded-lg shadow-sm focus:outline-none transition"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -54,21 +54,20 @@ export default function LoginPage() {
         <input
           type="password"
           placeholder="Password"
-          className="w-full border px-3 py-2 rounded"
+          className="w-full border-2 border-indigo-100 focus:border-green-300 px-4 py-2 rounded-lg shadow-sm focus:outline-none transition"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
 
-        {error && <p className="text-red-500 text-sm">{error}</p>}
+        {error && <p className="text-red-500 text-sm text-center font-semibold bg-red-50 rounded py-2 shadow">{error}</p>}
 
         <button
-  type="submit"
-  className="w-full bg-gradient-to-r from-primary to-purple-600 text-white py-2 rounded-md shadow-md hover:opacity-90 transition duration-300"
->
-  Login
-</button>
-
+          type="submit"
+          className="w-full bg-gradient-to-r from-indigo-500 to-green-400 text-white py-2.5 rounded-lg shadow-md font-bold text-lg hover:opacity-90 transition duration-300"
+        >
+          Login
+        </button>
       </form>
     </div>
   );

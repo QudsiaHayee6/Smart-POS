@@ -10,13 +10,13 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const sidebarWidth = isCollapsed ? 64 : 208;
+  const sidebarWidth = isCollapsed ? 48 : 170; // match Sidebar's Tailwind width
 
   return (
     <>
       <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
       <main
-        className="transition-all duration-300 p-4"
+        className="transition-all duration-300"
         style={{ marginLeft: `${sidebarWidth}px` }}
       >
         {children}

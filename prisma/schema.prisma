@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model order_items {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  order_id   String?   @db.Uuid
+  product_id String?   @db.Uuid
+  quantity   Int
+  price      Decimal   @db.Decimal
+  orders     orders?   @relation(fields: [order_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  products   products? @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model orders {
+  id             String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  customer       String?
+  total          Decimal?      @db.Decimal
+  created_at     DateTime?     @default(now()) @db.Timestamp(6)
+  phone          String?
+  address        String?
+  items          Json?         @db.Json
+  status         String?
+  payment_method String?
+  order_items    order_items[]
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model products {
+  id            String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name          String
+  price         Decimal       @db.Decimal(10, 2)
+  image_url     String
+  sku           String        @unique
+  created_at    DateTime?     @default(now()) @db.Timestamptz(6)
+  branch        String?
+  opening_stock Int?          @default(0)
+  order_items   order_items[]
+}
+
+model purchases {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  sku            String
+  quantity       Int
+  purchase_price Decimal   @db.Decimal
+  supplier_name  String?
+  created_at     DateTime? @default(now()) @db.Timestamp(6)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model stock_logs {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  sku          String
+  type         String?
+  quantity     Int
+  reference_id String?   @db.Uuid
+  created_at   DateTime? @default(now()) @db.Timestamp(6)
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model transfers {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  sku           String
+  quantity      Int
+  type          String?
+  source_branch String?
+  target_branch String?
+  created_at    DateTime? @default(now()) @db.Timestamp(6)
+}
+

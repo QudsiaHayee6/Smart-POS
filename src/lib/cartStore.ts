@@ -2,7 +2,7 @@
 import { create } from "zustand";
 
 type Product = {
-  id: number;
+  id: string;
   name: string;
   price: number;
   image: string;
@@ -14,9 +14,9 @@ type CartItem = Product & { quantity: number };
 interface CartStore {
   cart: CartItem[];
   addToCart: (product: Product) => void;
-  removeFromCart: (id: number) => void;
-  increaseQty: (id: number) => void;
-  decreaseQty: (id: number) => void;
+  removeFromCart: (id: string) => void;
+  increaseQty: (id: string) => void;
+  decreaseQty: (id: string) => void;
   clearCart: () => void;
 }
 

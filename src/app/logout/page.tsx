@@ -15,10 +15,10 @@ export default function LogoutPage() {
   }, [router]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-primary to-purple-600 text-white">
-      <div className="text-center space-y-2">
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-[#f8fafc] via-[#e0e7ff] to-[#f0fdf4] text-indigo-900">
+      <div className="text-center space-y-4 bg-white/80 rounded-2xl shadow-xl px-10 py-8 border border-indigo-100">
         <svg
-          className="animate-spin h-8 w-8 mx-auto text-white"
+          className="animate-spin h-10 w-10 mx-auto text-indigo-700 drop-shadow"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -37,7 +37,8 @@ export default function LogoutPage() {
             d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
           />
         </svg>
-        <p className="text-xl font-semibold">Logging out...</p>
+        <p className="text-2xl font-extrabold text-indigo-800">Logging out...</p>
+        <p className="text-sm text-green-700">You are being securely signed out. Redirecting to login...</p>
       </div>
     </div>
   );
